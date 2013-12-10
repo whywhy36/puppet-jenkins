@@ -68,7 +68,8 @@ class jenkins::slave (
   $slave_home        = '/home/jenkins-slave',
   $labels            = undef,
   $install_java      = $jenkins::params::install_java,
-  $enable            = true
+  $enable            = true,
+  $fqdn              = '',
 ) inherits jenkins::params {
 
   $client_jar = "swarm-client-${version}-jar-with-dependencies.jar"

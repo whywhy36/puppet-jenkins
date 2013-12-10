@@ -11,7 +11,7 @@ RETVAL=0
 IS_UBUNTU=`cat /etc/*-release | grep -i ubuntu | head -n 1`
 
 
-if [ -n $IS_UBUNTU ]; then
+if [ -z $IS_UBUNTU ]; then
     . /etc/init.d/functions
 else
     . /lib/lsb/init-functions
@@ -23,7 +23,7 @@ SU=/bin/su
 
 slave_start() {
   echo Starting Jenkins Slave...
-  if [ -n $IS_UBUNTU ]; then
+  if [ -z $IS_UBUNTU ]; then
       runuser - <%= slave_user -%> -c 'java -jar <%= slave_home -%>/<%= client_jar -%> <%= ui_user_flag -%> <%= ui_pass_flag -%> -name <%= fqdn -%> -executors <%= executors -%> <%= masterurl_flag -%> <%= labels_flag -%> &'
   else
       $SU  -l  <%= slave_user -%> -c 'java -jar <%= slave_home -%>/<%= client_jar -%> <%= ui_user_flag -%> <%= ui_pass_flag -%> -name <%= fqdn -%> -executors <%= executors -%> <%= masterurl_flag -%> <%= labels_flag -%> &'
